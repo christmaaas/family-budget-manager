@@ -96,3 +96,11 @@
 Главное окно приложения. 
 
 ![Главное окно приложения](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/DashboardMockup.png)  
+
+Окно установки нового значения семейного бюджета и периода на который он планируется. 
+
+![Окно установки нового значения семейного бюджета и периода на который он планируется](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/SetNewFamilyBudget.png) 
+
+Окно статистики распределения семейного бюджета по категориям расходов. 
+
+![Окно статистики распределения семейного бюджета по категориям расходов](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/StatisticMockup.png) 
