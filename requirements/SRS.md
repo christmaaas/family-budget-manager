@@ -82,3 +82,17 @@
 
 ## 2.2 Интерфейс пользователя
 Окно входа в приложение.  
+
+![Окно входа в приложение](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/SignInOrSignUpMockup.png)  
+
+Окно регистрации нового пользователя.  
+
+![Окно регистрации нового пользователя](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/SigningUpMockup.png) 
+
+Окно входа для зарегистрированного пользователя.  
+
+![Окно входа для зарегистрированного пользователя](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/SigningInMockup.png).
+
+Главное окно приложения. 
+
+![Главное окно приложения](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/DashboardMockup.png)  
