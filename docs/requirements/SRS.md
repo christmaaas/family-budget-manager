@@ -82,47 +82,47 @@
 ## 2.2 Интерфейс пользователя
 Окно входа в приложение.  
 
-![Окно входа в приложение](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/SignInOrSignUpMockup.png)  
+![Окно входа в приложение](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/SignInOrSignUpMockup.png)  
 
 Окно регистрации нового пользователя.  
 
-![Окно регистрации нового пользователя](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/SigningUpMockup.png) 
+![Окно регистрации нового пользователя](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/SigningUpMockup.png) 
 
 Окно входа для зарегистрированного пользователя.  
 
-![Окно входа для зарегистрированного пользователя](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/SigningInMockup.png).
+![Окно входа для зарегистрированного пользователя](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/SigningInMockup.png).
 
 Главное окно приложения. 
 
-![Главное окно приложения](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/DashboardMockup.png)  
+![Главное окно приложения](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/DashboardMockup.png)  
 
 Окно установки нового значения семейного бюджета и периода на который он планируется. 
 
-![Окно установки нового значения семейного бюджета и периода на который он планируется](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/SetNewFamilyBudget.png)
+![Окно установки нового значения семейного бюджета и периода на который он планируется](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/SetNewFamilyBudget.png)
 
 Окно добавления новой транзакции. 
 
-![Окно добавления новой транзакции](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/RegisterTransactionMockup.png)
+![Окно добавления новой транзакции](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/RegisterTransactionMockup.png)
 
 Окно статистики распределения семейного бюджета по категориям расходов. 
 
-![Окно статистики распределения семейного бюджета по категориям расходов](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/StatisticMockup.png) 
+![Окно статистики распределения семейного бюджета по категориям расходов](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/StatisticMockup.png) 
 
 Окно вывода информации о выбранной транзакции. 
 
-![Окно вывода информации о выбранной транзакции](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/TransactionInfoMockup.png)  
+![Окно вывода информации о выбранной транзакции](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/TransactionInfoMockup.png)  
 
 Окно категорий транзакций.  
 
-![Окно категорий транзакций](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/TransactionsCategoriesMockup.png)  
+![Окно категорий транзакций](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/TransactionsCategoriesMockup.png)  
 
 Окно транзакций каждой категории (в данном случае категории еды).  
 
-![Окно транзакций каждой категории (в данном случае категории еды)](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/CategoryTransactionsListMockup.png) 
+![Окно транзакций каждой категории (в данном случае категории еды)](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/CategoryTransactionsListMockup.png) 
 
 Окно с информацией о текущем пользователе.  
 
-![Окно с информацией о текущем пользователе](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/ProfileMockup.png)  
+![Окно с информацией о текущем пользователе](https://github.com/christmaaas/family-budget-manager/blob/main/mockups/ProfileMockup.png)  
 
 <a name="user_specifications"/>
 
