@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_statistic"
+    app:startDestination="@id/statistic_fragment">
+
+    <fragment
+        android:id="@+id/statistic_fragment"
+        android:name="com.example.familybudgetmanager.fragments.Statistic"
+        android:label="StatisticFragment"
+        tools:layout="@layout/fragment_statistic">
+    </fragment>
+
+</navigation>

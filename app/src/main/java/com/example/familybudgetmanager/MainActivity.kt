@@ -2,30 +2,49 @@ package com.example.familybudgetmanager
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
+import com.example.familybudgetmanager.R
 import com.example.familybudgetmanager.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
-    // Переменная для работы с ViewBinding
-    private lateinit var binding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Инициализация ViewBinding
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Получаем ссылку на NavHostFragment
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
+        binding.viewPager.isUserInputEnabled = false
 
-        // Настройка BottomNavigationView с NavController
-        val bottomNavigationView: BottomNavigationView = binding.bottomNavigation
-        bottomNavigationView.setupWithNavController(navController)
+        binding.viewPager.adapter = ViewPagerAdapter(this)
+
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    binding.viewPager.setCurrentItem(0, false)
+                    true
+                }
+                R.id.statistic -> {
+                    binding.viewPager.setCurrentItem(1, false)
+                    true
+                }
+                R.id.history -> {
+                    binding.viewPager.setCurrentItem(2, false)
+                    true
+                }
+                R.id.profile -> {
+                    binding.viewPager.setCurrentItem(3, false)
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
