@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.familybudgetmanager.fragments.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_statistic"
+            app:destination="@id/statistic" />
+    </fragment>
+    <fragment
+        android:id="@+id/statistic"
+        android:name="com.example.familybudgetmanager.fragments.Statistic"
+        android:label="fragment_statistic"
+        tools:layout="@layout/fragment_statistic" >
+        <action
+            android:id="@+id/action_statistic_to_home"
+            app:destination="@id/home" />
+        <action
+            android:id="@+id/action_statistic_to_history"
+            app:destination="@id/history" />
+    </fragment>
+    <fragment
+        android:id="@+id/history"
+        android:name="com.example.familybudgetmanager.fragments.History"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_history_to_statistic"
+            app:destination="@id/statistic" />
+        <action
+            android:id="@+id/action_history_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.familybudgetmanager.fragments.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_history"
+            app:destination="@id/history" />
+    </fragment>
+</navigation>
