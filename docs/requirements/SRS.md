@@ -100,9 +100,17 @@
 
 ![Окно установки нового значения семейного бюджета и периода на который он планируется](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/SetNewFamilyBudget.png)
 
+Сообщение об успешной установке семейного бюджета. 
+
+![Сообщение об успешной установке семейного бюджета](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/BudgetUpdatedInfoMockup.png)
+
 Окно добавления новой транзакции. 
 
 ![Окно добавления новой транзакции](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/RegisterTransactionMockup.png)
+
+Сообщение об успешном добавлении новой транзакции. 
+
+![Сообщение об успешном добавлении новой транзакции](https://github.com/christmaaas/family-budget-manager/blob/main/docs/mockups/TransactionAddedInfoMockup.png)
 
 Окно статистики распределения семейного бюджета по категориям расходов. 
 
