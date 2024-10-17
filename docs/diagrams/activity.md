@@ -12,8 +12,8 @@
 
 ### 2. Установка бюджета<a name="2"></a>
 
-![Установка бюджета](https://github.com/DanutaGagua/Personal-film-collection-manager/blob/master/Diagrams/Images/SetBudgetActivityDiagram.png)
+![Установка бюджета](https://github.com/christmaaas/family-budget-manager/blob/main/docs/diagrams/images/SetBudgetActivityDiagram.png)
   
 ### 3. Добавление транзакции<a name="3"></a>
 
-![Добавление транзакции](https://github.com/DanutaGagua/Personal-film-collection-manager/blob/master/Diagrams/Images/AddTransactionActivityDiagram.png)
+![Добавление транзакции](https://github.com/christmaaas/family-budget-manager/blob/main/docs/diagrams/images/AddTransactionActivityDiagram.png)
