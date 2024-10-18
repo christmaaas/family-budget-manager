@@ -10,6 +10,29 @@
         android:name="com.example.familybudgetmanager.fragments.Home"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
+        <argument
+            android:name="budget"
+            app:argType="string" />
+        <argument
+            android:name="period"
+            app:argType="string" />
+        <argument
+            android:name="periodType"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_home_to_setBudgetFragment"
+            app:destination="@id/SetBudgetFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SetBudgetFragment"
+        android:name="com.example.familybudgetmanager.fragments.SetBudgetFragment"
+        android:label="SetBudgetFragment"
+        tools:layout="@layout/fragment_set_budget">
+
+        <action
+            android:id="@+id/action_SetBudgetFragment_to_HomeFragment"
+            app:destination="@id/home_fragment" />
     </fragment>
 
 </navigation>

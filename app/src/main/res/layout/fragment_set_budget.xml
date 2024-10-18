@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/budgetLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/budget_amount"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/budgetInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_budget"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/budgetLabel"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/periodLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/period_value"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/budgetInput"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/periodInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_period_value"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/periodLabel"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/periodTypeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_period_type"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/periodInput"
+        android:layout_marginTop="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/periodRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/periodTypeLabel"
+        android:layout_marginTop="16dp">
+
+        <RadioButton
+            android:id="@+id/daysRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/days" />
+
+        <RadioButton
+            android:id="@+id/weeksRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weeks" />
+
+        <RadioButton
+            android:id="@+id/monthsRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/months" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/submitBudgetButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/apply"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/periodRadioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cancelBudgetButton"
+        android:layout_marginEnd="8dp"/>
+
+    <Button
+        android:id="@+id/cancelBudgetButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/periodRadioGroup"
+        app:layout_constraintStart_toEndOf="@id/submitBudgetButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
