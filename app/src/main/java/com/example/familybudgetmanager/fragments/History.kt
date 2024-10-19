@@ -1,5 +1,7 @@
 package com.example.familybudgetmanager.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,8 @@ import com.example.familybudgetmanager.R
 import com.example.familybudgetmanager.adapters.TransactionAdapter
 import com.example.familybudgetmanager.databinding.FragmentHistoryBinding
 import com.example.familybudgetmanager.models.Transaction
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     private var _binding: FragmentHistoryBinding? = null
@@ -22,6 +26,12 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
 
     private lateinit var transactionsAdapter: TransactionAdapter
     private val transactionsList = mutableListOf<Transaction>() // Изменено на mutableList
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private val PREFS_NAME = "transactions_prefs"
+    private val TRANSACTION_LIST_KEY = "transactions_list"
+
+    private var currentFilter: String? = null // Переменная для отслеживания фильтра
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +44,30 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Получаем данные переданные из AddTransactionFragment
+        sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
+        // Загружаем данные из SharedPreferences при запуске фрагмента
+        loadTransactions()
+
+        // Настраиваем адаптер для RecyclerView
         transactionsAdapter = TransactionAdapter(transactionsList, this)
         binding.transactionsRecyclerView.adapter = transactionsAdapter
         binding.transactionsRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        receiveTransactionData()
+        try {
+            if (args.title.isNotEmpty() && args.category.isNotEmpty() && args.amount.isNotEmpty() && args.description.isNotEmpty() && args.transactionType.isNotEmpty()) {
+                val transaction = Transaction(args.title, args.category, args.amount.toDouble(), getCurrentDate(), args.transactionType)
+                transactionsList.add(transaction)
+
+                // Сохраняем транзакции в SharedPreferences
+                saveTransactions()
+
+                // Уведомляем адаптер о добавлении нового элемента
+                transactionsAdapter.notifyItemInserted(transactionsList.size - 1)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         // Set up toggle button listener
         binding.transactionTypeToggleGroup.addOnButtonCheckedListener { _, checkedId, _ ->
@@ -55,37 +82,25 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
         }
     }
 
-    private fun receiveTransactionData() {
-        var title: String
-        var category: String
-        var amount: Double
-        var description: String
-        var transactionType: String
+    private fun saveTransactions() {
+        val gson = Gson()
+        val json = gson.toJson(transactionsList) // Преобразуем список в JSON
+        sharedPreferences.edit().putString(TRANSACTION_LIST_KEY, json).apply() // Сохраняем JSON в SharedPreferences
+    }
 
-        try {
-            title = args.title
-            category = args.category
-            amount = args.amount.toDouble()
-            description = args.description
-            transactionType = args.transactionType
-        } catch (e: Exception) {
-            title = ""
-            category = ""
-            amount = 0.0
-            description = ""
-            transactionType = ""
-            e.printStackTrace()
-        }
-        if (title.isNotEmpty() && category.isNotEmpty() && amount != 0.0 && description.isNotEmpty() && transactionType.isNotEmpty()) {
-            val transaction = Transaction(title, category, amount, getCurrentDate(), transactionType)
-            transactionsList.add(transaction)
-            transactionsAdapter.notifyItemInserted(transactionsList.size - 1) // Уведомляем адаптер о добавлении нового элемента
+    private fun loadTransactions() {
+        val gson = Gson()
+        val json = sharedPreferences.getString(TRANSACTION_LIST_KEY, null) // Получаем JSON из SharedPreferences
+        if (json != null) {
+            val type = object : TypeToken<MutableList<Transaction>>() {}.type
+            val loadedTransactions: MutableList<Transaction> = gson.fromJson(json, type) // Преобразуем JSON обратно в список
+            transactionsList.clear()
+            transactionsList.addAll(loadedTransactions) // Добавляем загруженные транзакции в список
         }
     }
 
     private fun getCurrentDate(): String {
         // Возвращаем текущую дату в нужном формате
-        // Можно использовать SimpleDateFormat для форматирования даты
         return "19.10.2024" // Это пример, вы можете использовать свою реализацию
     }
 
@@ -94,10 +109,25 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     }
 
     private fun filterTransactions(type: String) {
-        // Логика для фильтрации транзакций по типу
+        currentFilter = type
         val filteredList = transactionsList.filter { it.type == type }
-        transactionsAdapter = TransactionAdapter(filteredList, this)
+        transactionsAdapter = TransactionAdapter(filteredList.toMutableList(), this) // Передаем MutableList
         binding.transactionsRecyclerView.adapter = transactionsAdapter
+    }
+
+    // Реализуем метод для удаления транзакции
+    override fun onDeleteTransaction(transaction: Transaction) {
+        // Удаляем транзакцию из основного списка
+        val positionInMainList = transactionsList.indexOf(transaction)
+        if (positionInMainList != -1) {
+            transactionsList.removeAt(positionInMainList)
+            saveTransactions() // Сохраняем изменения в SharedPreferences
+
+            // Фильтруем заново после удаления
+            currentFilter?.let {
+                filterTransactions(it)
+            } ?: transactionsAdapter.notifyDataSetChanged() // Обновляем весь список если нет фильтра
+        }
     }
 
     override fun onDestroyView() {

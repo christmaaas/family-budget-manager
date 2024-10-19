@@ -28,7 +28,7 @@ class AddTransactionFragment : Fragment() {
         binding.saveTransactionButton.setOnClickListener {
             val title = binding.titleEditText.text.toString()
             val category = binding.categoryEditText.text.toString()
-            val amount = binding.amountEditText.text.toString().toDoubleOrNull()
+            val amount = binding.amountEditText.text.toString()
             val description = binding.descriptionEditText.text.toString()
 
             val selectedtransactionType = when (binding.transactionTypeRadioGroup.checkedRadioButtonId) {
@@ -38,13 +38,13 @@ class AddTransactionFragment : Fragment() {
             }
 
             // Проверяем, что все поля заполнены
-            if (title.isEmpty() || category.isEmpty() || amount == null || description.isEmpty() || selectedtransactionType == null) {
+            if (title.isEmpty() || category.isEmpty() || amount.isEmpty() || description.isEmpty() || selectedtransactionType == null) {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             } else {
                 val action = AddTransactionFragmentDirections.actionAddTransactionFragmentToHistoryFragment(
                     title,
                     category,
-                    amount.toString(),
+                    amount,
                     description,
                     selectedtransactionType
                 )
@@ -53,7 +53,15 @@ class AddTransactionFragment : Fragment() {
         }
 
         binding.cancelTransactionButton.setOnClickListener {
-            findNavController().popBackStack()
+            val action = AddTransactionFragmentDirections.actionAddTransactionFragmentToHistoryFragment(
+                "",
+                "",
+                "",
+                "",
+                ""
+            )
+            findNavController().navigate(action)
+            //findNavController().popBackStack()
         }
     }
 

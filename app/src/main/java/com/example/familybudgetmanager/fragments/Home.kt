@@ -1,5 +1,8 @@
 package com.example.familybudgetmanager.fragments
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +25,12 @@ class Home : Fragment(), TransactionAdapter.RecyclerViewEvent {
 
     private val args: HomeArgs by navArgs()
 
+    private lateinit var sharedPreferences: SharedPreferences
+    private val PREFS_NAME = "budget_prefs"
+    private val BUDGET_KEY = "budget"
+    private val PERIOD_KEY = "period"
+    private val PERIOD_TYPE_KEY = "period_type"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,16 +42,12 @@ class Home : Fragment(), TransactionAdapter.RecyclerViewEvent {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
         val currency = "$"
 
-        try {
-            binding.budget.text = args.budget + currency
-            binding.period.text = "Period: ${args.period} ${args.periodType}"
-        } catch (e: Exception) {
-            binding.budget.text = "Not Selected"
-            binding.period.text = "Not Selected"
-            e.printStackTrace()
-        }
+        // Загружаем данные бюджета и периода из SharedPreferences
+        loadBudgetAndPeriod(currency)
 
         binding.setBudgetButton.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_setBudgetFragment)
@@ -52,19 +57,61 @@ class Home : Fragment(), TransactionAdapter.RecyclerViewEvent {
         transactionList = listOf(
             Transaction("Grocery", "Food", 50.0, "2023-10-04", "Spending"),
             Transaction("Rent", "Housing", 500.0, "2023-10-01", "Spending"),
-            Transaction("Gym", "Health", 30.0, "2023-10-02", "Spending"),
-            Transaction("Grocery", "Food", 50.0, "2023-10-04", "Spending"),
-            Transaction("Rent", "Housing", 500.0, "2023-10-01", "Spending"),
             Transaction("Gym", "Health", 30.0, "2023-10-02", "Spending")
         )
 
         binding.transactionRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.transactionRecyclerView.adapter = TransactionAdapter(transactionList, this)
+        //binding.transactionRecyclerView.adapter = TransactionAdapter(transactionList, this)
+
+        try {
+            if (args.budget.isNotEmpty() && args.period.isNotEmpty() && args.periodType.isNotEmpty()) {
+                saveBudgetAndPeriod(args.budget, args.period, args.periodType)
+                loadBudgetAndPeriod(currency)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun saveBudgetAndPeriod(budget: String, period: String, periodType: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(BUDGET_KEY, budget)
+        editor.putString(PERIOD_KEY, period)
+        editor.putString(PERIOD_TYPE_KEY, periodType)
+        editor.apply() // Сохраняем изменения
+    }
+
+    private fun loadBudgetAndPeriod(currency: String) {
+        val budget = sharedPreferences.getString(BUDGET_KEY, "Not Selected")
+        val period = sharedPreferences.getString(PERIOD_KEY, "Not Selected")
+        val periodType = sharedPreferences.getString(PERIOD_TYPE_KEY, "")
+
+        // Устанавливаем значения в TextView
+        binding.budget.text = budget + currency
+        binding.period.text = "Period: $period $periodType"
+    }
+
+    override fun onDeleteTransaction(transaction: Transaction) {
+//        // Устанавливаем выбранную позицию для последующего удаления
+//        selectedTransactionPosition = position
+//
+//        // Открываем контекстное меню (если нужно вручную)
+//        requireActivity().openContextMenu(binding.transactionsRecyclerView)
+    }
+
+    private fun deleteTransaction(position: Int) {
+//        // Удаляем транзакцию из списка
+//        transactionsList.removeAt(position)
+//
+//        // Сохраняем изменения в SharedPreferences
+//        saveTransactions()
+//
+//        // Уведомляем адаптер о том, что элемент удален
+//        transactionsAdapter.notifyItemRemoved(position)
     }
 
     override fun onItemClick(transaction: Transaction) {
-//        val action = HomeDirections.actionHomeToTransactionDetailFragment(transaction)
-//        findNavController().navigate(action)
+        // Обработка клика по транзакции (по желанию)
     }
 
     override fun onDestroyView() {
@@ -77,3 +124,5 @@ class Home : Fragment(), TransactionAdapter.RecyclerViewEvent {
         fun newInstance() = Home()
     }
 }
+
+

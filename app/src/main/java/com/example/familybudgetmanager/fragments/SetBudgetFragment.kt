@@ -26,8 +26,8 @@ class SetBudgetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.submitBudgetButton.setOnClickListener {
-            val budget = binding.budgetInput.text.toString().toFloatOrNull()
-            val periodValue = binding.periodInput.text.toString().toIntOrNull()
+            val budget = binding.budgetInput.text.toString()
+            val periodValue = binding.periodInput.text.toString()
 
             val selectedPeriodType = when (binding.periodRadioGroup.checkedRadioButtonId) {
                 binding.daysRadioButton.id -> "Days"
@@ -36,12 +36,12 @@ class SetBudgetFragment : Fragment() {
                 else -> null
             }
 
-            if (budget == null || periodValue == null || selectedPeriodType == null) {
+            if (budget.isEmpty() || periodValue.isEmpty() || selectedPeriodType == null) {
                 Toast.makeText(context, "Please fill all fields and select a period type", Toast.LENGTH_SHORT).show()
             } else {
                 val action = SetBudgetFragmentDirections.actionSetBudgetFragmentToHomeFragment(
-                    budget.toString(),
-                    periodValue.toString(),
+                    budget,
+                    periodValue,
                     selectedPeriodType
                 )
                 findNavController().navigate(action)
@@ -49,7 +49,13 @@ class SetBudgetFragment : Fragment() {
         }
 
         binding.cancelBudgetButton.setOnClickListener {
-            findNavController().popBackStack()
+            val action = SetBudgetFragmentDirections.actionSetBudgetFragmentToHomeFragment(
+                "",
+                "",
+                ""
+            )
+            findNavController().navigate(action)
+            //findNavController().popBackStack()
         }
     }
 
