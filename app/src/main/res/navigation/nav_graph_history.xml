@@ -10,6 +10,35 @@
         android:name="com.example.familybudgetmanager.fragments.History"
         android:label="HistoryFragment"
         tools:layout="@layout/fragment_history">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="amount"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="transactionType"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_history_to_addTransactionFragment"
+            app:destination="@id/AddTransactionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddTransactionFragment"
+        android:name="com.example.familybudgetmanager.fragments.AddTransactionFragment"
+        android:label="AddTransactionFragment"
+        tools:layout="@layout/fragment_add_transaction">
+
+        <action
+            android:id="@+id/action_AddTransactionFragment_to_HistoryFragment"
+            app:destination="@id/history_fragment" />
     </fragment>
 
 </navigation>

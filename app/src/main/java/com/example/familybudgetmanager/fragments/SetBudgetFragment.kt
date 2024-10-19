@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.familybudgetmanager.databinding.FragmentSetBudgetBinding
 
-class SetBudgetFragment : DialogFragment() {
+class SetBudgetFragment : Fragment() {
 
     private var _binding: FragmentSetBudgetBinding? = null
     private val binding get() = _binding!!
@@ -48,17 +49,8 @@ class SetBudgetFragment : DialogFragment() {
         }
 
         binding.cancelBudgetButton.setOnClickListener {
-            dismiss()
             findNavController().popBackStack()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
     }
 
     override fun onDestroyView() {

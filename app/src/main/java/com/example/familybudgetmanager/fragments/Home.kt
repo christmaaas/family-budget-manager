@@ -50,12 +50,12 @@ class Home : Fragment(), TransactionAdapter.RecyclerViewEvent {
 
         // Пример списка транзакций
         transactionList = listOf(
-            Transaction("Grocery", "Food", 50.0, "2023-10-04"),
-            Transaction("Rent", "Housing", 500.0, "2023-10-01"),
-            Transaction("Gym", "Health", 30.0, "2023-10-02"),
-            Transaction("Grocery", "Food", 50.0, "2023-10-04"),
-            Transaction("Rent", "Housing", 500.0, "2023-10-01"),
-            Transaction("Gym", "Health", 30.0, "2023-10-02")
+            Transaction("Grocery", "Food", 50.0, "2023-10-04", "Spending"),
+            Transaction("Rent", "Housing", 500.0, "2023-10-01", "Spending"),
+            Transaction("Gym", "Health", 30.0, "2023-10-02", "Spending"),
+            Transaction("Grocery", "Food", 50.0, "2023-10-04", "Spending"),
+            Transaction("Rent", "Housing", 500.0, "2023-10-01", "Spending"),
+            Transaction("Gym", "Health", 30.0, "2023-10-02", "Spending")
         )
 
         binding.transactionRecyclerView.layoutManager = LinearLayoutManager(context)
