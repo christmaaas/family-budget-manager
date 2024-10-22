@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
     tools:context=".fragments.History">
 
-    <!-- Toggle Button for switching between transaction types -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/transactionsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintTop_toTopOf="parent"
+        android:titleTextColor="@android:color/white"
+        app:title="Transaction History" />
+
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/transactionTypeToggleGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/transactionsToolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -31,12 +44,12 @@
             android:text="Profit" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <!-- RecyclerView for the transaction list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transactionsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         tools:listitem="@layout/transaction_item"
         app:layout_constraintTop_toBottomOf="@id/transactionTypeToggleGroup"
         app:layout_constraintStart_toStartOf="parent"

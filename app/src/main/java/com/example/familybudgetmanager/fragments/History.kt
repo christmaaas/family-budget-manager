@@ -50,8 +50,7 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
         loadTransactions()
 
         // Настраиваем адаптер для RecyclerView
-        transactionsAdapter = TransactionAdapter(transactionsList, this)
-        binding.transactionsRecyclerView.adapter = transactionsAdapter
+        binding.transactionsRecyclerView.adapter = TransactionAdapter(transactionsList, this)
         binding.transactionsRecyclerView.layoutManager = LinearLayoutManager(context)
 
         try {
