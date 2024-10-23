@@ -29,7 +29,7 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private val args: HomeArgs by navArgs()
 
     private lateinit var budgetAdapter: BudgetAdapter
-    private val budgetList = mutableListOf<Budget>() // Список для истории изменений бюджета
+    private val budgetList = mutableListOf<Budget>()
 
     private lateinit var sharedPreferences: SharedPreferences
     private val PREFS_NAME = "budget_history_prefs"
@@ -37,7 +37,6 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private val BUDGET_KEY = "last_budget"
     private val PERIOD_KEY = "last_period"
     private val PERIOD_TYPE_KEY = "last_period_type"
-    // Добавляем ключи для хранения расходов и доходов
     private val EXPENSE_KEY = "last_expense"
     private val INCOME_KEY = "last_income"
 
@@ -56,13 +55,10 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
 
         val currency = "$"
 
-        // Загружаем последнее значение бюджета, периода, расходов и доходов из SharedPreferences
         loadLastBudgetAndPeriod(currency)
 
-        // Загружаем историю изменений бюджета при запуске фрагмента
         loadBudgetHistory()
 
-        // Настраиваем адаптер для RecyclerView
         budgetAdapter = BudgetAdapter(budgetList, this)
         binding.budgetRecyclerView.adapter = budgetAdapter
         binding.budgetRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -73,24 +69,20 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
 
         try {
             if (args.budget.isNotEmpty() && args.period.isNotEmpty() && args.periodType.isNotEmpty()) {
-                // Создаем новый объект бюджета на основе переданных аргументов
                 val newBudget = Budget(
                     budgetAmount = args.budget + currency,
                     budgetPeriodType = "Period: ${args.period} ${args.periodType}",
                     budgetDateTitle = getCurrentDate(),
-                    userNameTitle = "User" // Можно заменить на реальное имя пользователя
+                    userNameTitle = "User"
                 )
 
-                // Сохраняем последний бюджет, период, расходы и доходы в SharedPreferences
                 saveLastBudgetAndPeriod(args.budget, args.period, args.periodType)
-                saveLastExpenseAndIncome("0.0", "0.0") // Сохраняем начальные значения расходов и доходов
-                loadLastBudgetAndPeriod(currency) // Обновляем отображение
+                saveLastExpenseAndIncome("0.0", "0.0")
+                loadLastBudgetAndPeriod(currency)
 
-                // Добавляем новый бюджет в список истории
                 budgetList.add(newBudget)
-                saveBudgetHistory() // Сохраняем изменения в SharedPreferences
+                saveBudgetHistory()
 
-                // Уведомляем адаптер о добавлении нового элемента
                 budgetAdapter.notifyItemInserted(budgetList.size - 1)
             }
         } catch (e: Exception) {
@@ -100,21 +92,18 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
 
     override fun onResume() {
         super.onResume()
-        // Обновляем UI при каждом возврате к фрагменту
         val currency = "$"
         loadLastBudgetAndPeriod(currency)
     }
 
-    // Сохраняем последний установленный бюджет и период
     private fun saveLastBudgetAndPeriod(budget: String, period: String, periodType: String) {
         val editor = sharedPreferences.edit()
         editor.putString(BUDGET_KEY, budget)
         editor.putString(PERIOD_KEY, period)
         editor.putString(PERIOD_TYPE_KEY, periodType)
-        editor.apply() // Сохраняем изменения
+        editor.apply()
     }
 
-    // Сохраняем последние значения расходов и доходов
     private fun saveLastExpenseAndIncome(expense: String, income: String) {
         val editor = sharedPreferences.edit()
         editor.putString(EXPENSE_KEY, expense)
@@ -122,7 +111,6 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
         editor.apply()
     }
 
-    // Загружаем последнее значение бюджета, периода, расходов и доходов
     private fun loadLastBudgetAndPeriod(currency: String) {
         val budget = sharedPreferences.getString(BUDGET_KEY, "Not Selected")
         val period = sharedPreferences.getString(PERIOD_KEY, "Not Selected")
@@ -131,51 +119,44 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
         val expense = sharedPreferences.getString(EXPENSE_KEY, "0.0")
         val income = sharedPreferences.getString(INCOME_KEY, "0.0")
 
-        // Устанавливаем значения на экран
         binding.budget.text = budget + currency
         binding.period.text = "Period: $period $periodType"
         binding.expense.text = expense + currency
         binding.income.text = income + currency
     }
 
-    // Сохраняем историю изменений бюджета в SharedPreferences
     private fun saveBudgetHistory() {
         val gson = Gson()
-        val json = gson.toJson(budgetList) // Преобразуем список в JSON
-        sharedPreferences.edit().putString(BUDGET_LIST_KEY, json).apply() // Сохраняем JSON в SharedPreferences
+        val json = gson.toJson(budgetList)
+        sharedPreferences.edit().putString(BUDGET_LIST_KEY, json).apply()
     }
 
-    // Загружаем историю изменений бюджета из SharedPreferences
     private fun loadBudgetHistory() {
         val gson = Gson()
-        val json = sharedPreferences.getString(BUDGET_LIST_KEY, null) // Получаем JSON из SharedPreferences
+        val json = sharedPreferences.getString(BUDGET_LIST_KEY, null)
         if (json != null) {
             val type = object : TypeToken<MutableList<Budget>>() {}.type
-            val loadedBudgets: MutableList<Budget> = gson.fromJson(json, type) // Преобразуем JSON обратно в список
+            val loadedBudgets: MutableList<Budget> = gson.fromJson(json, type)
             budgetList.clear()
-            budgetList.addAll(loadedBudgets) // Добавляем загруженные бюджеты в список
+            budgetList.addAll(loadedBudgets)
         }
     }
 
     private fun getCurrentDate(): String {
-        // Возвращаем текущую дату в нужном формате (замени на свою реализацию)
-        return "19.10.2024" // Пример
+        return "19.10.2024"
     }
 
-    // Реализуем метод для обработки удаления бюджета
     override fun onDeleteBudget(budget: Budget) {
-        // Удаляем бюджет из списка
         val position = budgetList.indexOf(budget)
         if (position != -1) {
             budgetList.removeAt(position)
-            saveBudgetHistory() // Сохраняем изменения в SharedPreferences
+            saveBudgetHistory()
             budgetAdapter.notifyItemRemoved(position)
         }
     }
 
-    // Обработка клика по элементу бюджета (по желанию, можешь изменить логику)
     override fun onItemClick(budget: Budget) {
-        // Обработка клика по элементу списка
+        // TODO
     }
 
     override fun onDestroyView() {
