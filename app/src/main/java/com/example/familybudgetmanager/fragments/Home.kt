@@ -40,6 +40,8 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private val EXPENSE_KEY = "last_expense"
     private val INCOME_KEY = "last_income"
 
+    private val currency = "BYN"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,8 +54,6 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
         super.onViewCreated(view, savedInstanceState)
 
         sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-
-        val currency = "$"
 
         loadLastBudgetAndPeriod(currency)
 
@@ -92,7 +92,6 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
 
     override fun onResume() {
         super.onResume()
-        val currency = "$"
         loadLastBudgetAndPeriod(currency)
     }
 

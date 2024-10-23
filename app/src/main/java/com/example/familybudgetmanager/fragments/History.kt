@@ -37,6 +37,8 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
 
     private var currentFilter: String? = null
 
+    private val currency = "BYN"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,7 +60,7 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
 
         try {
             if (args.title.isNotEmpty() && args.category.isNotEmpty() && args.amount.isNotEmpty() && args.description.isNotEmpty() && args.transactionType.isNotEmpty()) {
-                val transaction = Transaction(args.title, args.category, args.amount.toDouble(), getCurrentDate(), args.transactionType)
+                val transaction = Transaction(args.title, args.category, args.amount + currency, getCurrentDate(), args.transactionType)
                 transactionsList.add(transaction)
 
                 saveTransactions()
