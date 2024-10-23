@@ -10,7 +10,7 @@ import com.example.familybudgetmanager.databinding.TransactionItemBinding
 import com.example.familybudgetmanager.models.Transaction
 
 class TransactionAdapter(
-    private val transactionList: MutableList<Transaction>, // Изменено на MutableList
+    private val transactionList: MutableList<Transaction>,
     private val listener: RecyclerViewEvent
 ) : RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
@@ -19,7 +19,6 @@ class TransactionAdapter(
 
         init {
             itemView.setOnClickListener(this)
-            // Устанавливаем длинное нажатие для отображения контекстного меню
             itemView.setOnLongClickListener {
                 showPopupMenu(it, adapterPosition)
                 true
@@ -27,19 +26,19 @@ class TransactionAdapter(
         }
 
         fun bind(transaction: Transaction) {
-            binding.title.text = transaction.title
-            binding.category.text = transaction.category
-            binding.money.text = transaction.amount.toString()
+            binding.transactionUsernameTitle.text = transaction.username
+            binding.transactionTitle.text = transaction.title
+            binding.money.text = transaction.amount
             binding.date.text = transaction.date
         }
 
         private fun showPopupMenu(view: View, position: Int) {
             val popup = PopupMenu(view.context, view)
-            popup.inflate(R.menu.context_menu) // Используем ваш файл меню
+            popup.inflate(R.menu.context_menu)
             popup.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.delete_transaction -> {
-                        listener.onDeleteTransaction(transactionList[position]) // Передаем транзакцию для удаления
+                        listener.onDeleteTransaction(transactionList[position])
                         true
                     }
                     else -> false
@@ -70,7 +69,7 @@ class TransactionAdapter(
 
     interface RecyclerViewEvent {
         fun onItemClick(transaction: Transaction)
-        fun onDeleteTransaction(transaction: Transaction) // Передаем объект для удаления
+        fun onDeleteTransaction(transaction: Transaction)
     }
 }
 

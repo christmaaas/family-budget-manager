@@ -10,7 +10,7 @@ import com.example.familybudgetmanager.databinding.BudgetItemBinding
 import com.example.familybudgetmanager.models.Budget
 
 class BudgetAdapter(
-    private val budgetList: MutableList<Budget>, // Используем MutableList для возможности изменения списка
+    private val budgetList: MutableList<Budget>,
     private val listener: RecyclerViewEvent
 ) : RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder>() {
 
@@ -19,7 +19,6 @@ class BudgetAdapter(
 
         init {
             itemView.setOnClickListener(this)
-            // Устанавливаем длинное нажатие для отображения контекстного меню
             itemView.setOnLongClickListener {
                 showPopupMenu(it, adapterPosition)
                 true
@@ -35,11 +34,11 @@ class BudgetAdapter(
 
         private fun showPopupMenu(view: View, position: Int) {
             val popup = PopupMenu(view.context, view)
-            popup.inflate(R.menu.context_menu) // Используем файл меню для контекстного меню
+            popup.inflate(R.menu.context_menu)
             popup.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
-                    R.id.delete_transaction -> { // Используйте соответствующий ID, если у вас другой пункт меню
-                        listener.onDeleteBudget(budgetList[position]) // Передаем бюджет для удаления
+                    R.id.delete_transaction -> {
+                        listener.onDeleteBudget(budgetList[position])
                         true
                     }
                     else -> false
@@ -70,6 +69,6 @@ class BudgetAdapter(
 
     interface RecyclerViewEvent {
         fun onItemClick(budget: Budget)
-        fun onDeleteBudget(budget: Budget) // Передаем объект для удаления
+        fun onDeleteBudget(budget: Budget)
     }
 }

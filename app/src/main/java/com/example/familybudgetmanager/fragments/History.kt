@@ -34,6 +34,8 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     private lateinit var sharedPreferences: SharedPreferences
     private val PREFS_NAME = "transactions_prefs"
     private val TRANSACTION_LIST_KEY = "transactions_list"
+    private val USER_PREFS = "user_prefs"
+    private val USERNAME_KEY = "username"
 
     private var currentFilter: String? = null
 
@@ -60,7 +62,21 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
 
         try {
             if (args.title.isNotEmpty() && args.category.isNotEmpty() && args.amount.isNotEmpty() && args.description.isNotEmpty() && args.transactionType.isNotEmpty()) {
-                val transaction = Transaction(args.title, args.category, args.amount + currency, getCurrentDate(), args.transactionType)
+                val transactionAmountVal = if (args.transactionType == "Profit") {
+                    "+" + args.amount + currency
+                } else {
+                    "-" + args.amount + currency
+                }
+
+                val transaction = Transaction(
+                    args.title,
+                    loadUserName(),
+                    args.category,
+                    args.description,
+                    transactionAmountVal,
+                    getCurrentDate(),
+                    args.transactionType
+                )
                 transactionsList.add(transaction)
 
                 saveTransactions()
@@ -98,6 +114,11 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
             transactionsList.clear()
             transactionsList.addAll(loadedTransactions)
         }
+    }
+
+    private fun loadUserName(): String {
+        val userPrefs = requireContext().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
+        return userPrefs.getString(USERNAME_KEY, "User") ?: "User"
     }
 
     private fun getCurrentDate(): String {
