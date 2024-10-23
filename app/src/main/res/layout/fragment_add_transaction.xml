@@ -18,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="16dp" />
 
-    <!-- Title Input -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/titleLayout"
         android:layout_width="0dp"
@@ -35,7 +34,6 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Category Input -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/categoryLayout"
         android:layout_width="0dp"
@@ -52,7 +50,6 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Amount Input -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/amountLayout"
         android:layout_width="0dp"
@@ -70,7 +67,6 @@
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Description Input -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/descriptionLayout"
         android:layout_width="0dp"
@@ -88,7 +84,6 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Transaction Type Label -->
     <TextView
         android:id="@+id/transactionTypeLabel"
         android:layout_width="wrap_content"
@@ -99,7 +94,6 @@
         app:layout_constraintTop_toBottomOf="@id/descriptionLayout"
         android:layout_marginTop="16dp"/>
 
-    <!-- Transaction Type RadioGroup -->
     <RadioGroup
         android:id="@+id/transactionTypeRadioGroup"
         android:layout_width="wrap_content"
@@ -122,7 +116,6 @@
             android:text="@string/profit" />
     </RadioGroup>
 
-    <!-- Save Transaction Button -->
     <Button
         android:id="@+id/saveTransactionButton"
         android:layout_width="0dp"
@@ -134,7 +127,6 @@
         app:layout_constraintEnd_toStartOf="@id/cancelTransactionButton"
         android:layout_marginEnd="8dp"/>
 
-    <!-- Cancel Transaction Button -->
     <Button
         android:id="@+id/cancelTransactionButton"
         android:layout_width="0dp"
