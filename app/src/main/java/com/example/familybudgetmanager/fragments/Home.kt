@@ -2,10 +2,12 @@ package com.example.familybudgetmanager.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,6 +18,8 @@ import com.example.familybudgetmanager.databinding.FragmentHomeBinding
 import com.example.familybudgetmanager.models.Budget
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private var _binding: FragmentHomeBinding? = null
@@ -33,6 +37,9 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private val BUDGET_KEY = "last_budget"
     private val PERIOD_KEY = "last_period"
     private val PERIOD_TYPE_KEY = "last_period_type"
+    // Добавляем ключи для хранения расходов и доходов
+    private val EXPENSE_KEY = "last_expense"
+    private val INCOME_KEY = "last_income"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +56,7 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
 
         val currency = "$"
 
-        // Загружаем последнее значение бюджета и периода из SharedPreferences
+        // Загружаем последнее значение бюджета, периода, расходов и доходов из SharedPreferences
         loadLastBudgetAndPeriod(currency)
 
         // Загружаем историю изменений бюджета при запуске фрагмента
@@ -68,14 +75,15 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
             if (args.budget.isNotEmpty() && args.period.isNotEmpty() && args.periodType.isNotEmpty()) {
                 // Создаем новый объект бюджета на основе переданных аргументов
                 val newBudget = Budget(
-                    budgetAmount = args.budget,
+                    budgetAmount = args.budget + currency,
                     budgetPeriodType = "Period: ${args.period} ${args.periodType}",
                     budgetDateTitle = getCurrentDate(),
                     userNameTitle = "User" // Можно заменить на реальное имя пользователя
                 )
 
-                // Сохраняем последний бюджет и период в SharedPreferences
+                // Сохраняем последний бюджет, период, расходы и доходы в SharedPreferences
                 saveLastBudgetAndPeriod(args.budget, args.period, args.periodType)
+                saveLastExpenseAndIncome("0.0", "0.0") // Сохраняем начальные значения расходов и доходов
                 loadLastBudgetAndPeriod(currency) // Обновляем отображение
 
                 // Добавляем новый бюджет в список истории
@@ -90,6 +98,13 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Обновляем UI при каждом возврате к фрагменту
+        val currency = "$"
+        loadLastBudgetAndPeriod(currency)
+    }
+
     // Сохраняем последний установленный бюджет и период
     private fun saveLastBudgetAndPeriod(budget: String, period: String, periodType: String) {
         val editor = sharedPreferences.edit()
@@ -99,15 +114,28 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
         editor.apply() // Сохраняем изменения
     }
 
-    // Загружаем последнее значение бюджета и периода
+    // Сохраняем последние значения расходов и доходов
+    private fun saveLastExpenseAndIncome(expense: String, income: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(EXPENSE_KEY, expense)
+        editor.putString(INCOME_KEY, income)
+        editor.apply()
+    }
+
+    // Загружаем последнее значение бюджета, периода, расходов и доходов
     private fun loadLastBudgetAndPeriod(currency: String) {
         val budget = sharedPreferences.getString(BUDGET_KEY, "Not Selected")
         val period = sharedPreferences.getString(PERIOD_KEY, "Not Selected")
         val periodType = sharedPreferences.getString(PERIOD_TYPE_KEY, "")
 
+        val expense = sharedPreferences.getString(EXPENSE_KEY, "0.0")
+        val income = sharedPreferences.getString(INCOME_KEY, "0.0")
+
         // Устанавливаем значения на экран
         binding.budget.text = budget + currency
         binding.period.text = "Period: $period $periodType"
+        binding.expense.text = expense + currency
+        binding.income.text = income + currency
     }
 
     // Сохраняем историю изменений бюджета в SharedPreferences

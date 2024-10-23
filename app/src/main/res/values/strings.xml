@@ -59,7 +59,7 @@
     <string name="expenses">Expenses</string>
     <string name="income">Income</string>
     <string name="add_your_transaction_for_this_month">Add Your Transaction for this Month</string>
-    <string name="recent_budgets">Recent Budgets</string>
+    <string name="budget_history">Budget History</string>
     <string name="drawericon">drawerIcon</string>
     <string name="name">Name :</string>
     <string name="edit">edit</string>
