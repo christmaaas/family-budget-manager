@@ -6,13 +6,27 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/budgetInfoText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Fill Budget Information"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
         android:id="@+id/budgetLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/budget_amount"
         android:textSize="16sp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/budgetInfoText"/>
 
     <EditText
         android:id="@+id/budgetInput"

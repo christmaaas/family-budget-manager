@@ -7,10 +7,10 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/transactionInfoText"
+        android:id="@+id/transactionDetailsText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Transaction Information"
+        android:text="Transaction Details"
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transactionInfoText" />
+        app:layout_constraintTop_toBottomOf="@id/transactionDetailsText" />
 
     <TextView
         android:id="@+id/categoryEditText"
