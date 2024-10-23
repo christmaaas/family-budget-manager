@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "914601560676",
+    "project_id": "familybudgetmanager-bcfc7",
+    "storage_bucket": "familybudgetmanager-bcfc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914601560676:android:ca7ba1c29bff1077226d71",
+        "android_client_info": {
+          "package_name": "com.example.familybudgetmanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUIoZkOKBBMnboKICM0fBDZ-X0i0UiA-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

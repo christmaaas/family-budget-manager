@@ -2,12 +2,10 @@ package com.example.familybudgetmanager.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,8 +16,6 @@ import com.example.familybudgetmanager.databinding.FragmentHomeBinding
 import com.example.familybudgetmanager.models.Budget
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private var _binding: FragmentHomeBinding? = null
@@ -39,6 +35,8 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private val PERIOD_TYPE_KEY = "last_period_type"
     private val EXPENSE_KEY = "last_expense"
     private val INCOME_KEY = "last_income"
+    private val USER_PREFS = "user_prefs"
+    private val USERNAME_KEY = "username"
 
     private val currency = "BYN"
 
@@ -56,7 +54,6 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
         sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         loadLastBudgetAndPeriod(currency)
-
         loadBudgetHistory()
 
         budgetAdapter = BudgetAdapter(budgetList, this)
@@ -73,7 +70,7 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
                     budgetAmount = args.budget + currency,
                     budgetPeriodType = "Period: ${args.period} ${args.periodType}",
                     budgetDateTitle = getCurrentDate(),
-                    userNameTitle = "User"
+                    userNameTitle = loadUserName()
                 )
 
                 saveLastBudgetAndPeriod(args.budget, args.period, args.periodType)
@@ -139,6 +136,11 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
             budgetList.clear()
             budgetList.addAll(loadedBudgets)
         }
+    }
+
+    private fun loadUserName(): String {
+        val userPrefs = requireContext().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
+        return userPrefs.getString(USERNAME_KEY, "User") ?: "User"
     }
 
     private fun getCurrentDate(): String {
