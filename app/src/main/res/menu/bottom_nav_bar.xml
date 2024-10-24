@@ -8,7 +8,7 @@
         android:icon="@drawable/ic_bottom_statistic" />
     <item android:title="@string/history"
         android:id="@+id/history"
-        android:icon="@drawable/ic_bottom_statistic" />
+        android:icon="@drawable/ic_bottom_history" />
     <item android:title="@string/profile"
         android:id="@+id/profile"
         android:icon="@drawable/ic_bottom_profile" />
