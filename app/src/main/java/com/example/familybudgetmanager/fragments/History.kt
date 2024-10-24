@@ -2,12 +2,10 @@ package com.example.familybudgetmanager.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,8 +16,6 @@ import com.example.familybudgetmanager.databinding.FragmentHistoryBinding
 import com.example.familybudgetmanager.models.Transaction
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     private var _binding: FragmentHistoryBinding? = null
@@ -126,7 +122,15 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     }
 
     override fun onItemClick(transaction: Transaction) {
-        // TODO
+        val action = HistoryDirections.actionHistoryToTransactionDetailsFragment(
+            transaction.title,
+            transaction.category,
+            transaction.amount,
+            transaction.description,
+            transaction.date,
+            transaction.username
+        )
+        findNavController().navigate(action)
     }
 
     private fun filterTransactions(type: String) {

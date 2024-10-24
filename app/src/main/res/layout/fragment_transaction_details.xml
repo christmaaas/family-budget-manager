@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Transaction Details"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,67 +20,145 @@
         android:layout_marginBottom="16dp" />
 
     <TextView
+        android:id="@+id/titleLabelText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Title:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/transactionDetailsText"
+        android:layout_marginTop="16dp" />
+
+    <TextView
         android:id="@+id/titleEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transactionDetailsText" />
+        app:layout_constraintTop_toBottomOf="@id/titleLabelText" />
+
+    <TextView
+        android:id="@+id/categoryLabelText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Category:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleEditText"
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/categoryEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleEditText"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/categoryLabelText"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/amountLabelText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Amount:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categoryEditText"
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/amountEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categoryEditText"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/amountLabelText"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/descriptionLabelText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amountEditText"
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/descriptionEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/amountEditText"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/descriptionLabelText"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/transactionDateLabelText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Date:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/transactionDateText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/transactionDateLabelText"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/transactionUserLabelText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="User:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/transactionDateText"
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/transactionUserText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transactionDateText"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/transactionUserLabelText"
+        android:layout_marginTop="4dp" />
 
     <Button
-        android:id="@+id/cancelTransactionButton"
+        android:id="@+id/okTransactionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ok"
