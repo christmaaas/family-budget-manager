@@ -37,6 +37,9 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private val INCOME_KEY = "last_income"
     private val USER_PREFS = "user_prefs"
     private val USERNAME_KEY = "username"
+    private val NEW_BUDGET_KEY = "new_budget"
+    private val PREFS_NAME_TRANSACTIONS = "transactions_prefs"
+    private val TRANSACTION_LIST_KEY = "transactions_list"
 
     private val currency = "BYN"
 
@@ -77,6 +80,8 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
                 saveLastExpenseAndIncome("0.0", "0.0")
                 loadLastBudgetAndPeriod(currency)
 
+                clearCopiedTransactionList()
+
                 budgetList.add(newBudget)
                 saveBudgetHistory()
 
@@ -97,6 +102,7 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
         editor.putString(BUDGET_KEY, budget)
         editor.putString(PERIOD_KEY, period)
         editor.putString(PERIOD_TYPE_KEY, periodType)
+        editor.putString(NEW_BUDGET_KEY, budget)
         editor.apply()
     }
 
@@ -141,6 +147,14 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private fun loadUserName(): String {
         val userPrefs = requireContext().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
         return userPrefs.getString(USERNAME_KEY, "User") ?: "User"
+    }
+
+    private fun clearCopiedTransactionList() {
+        val sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME_TRANSACTIONS, Context.MODE_PRIVATE)
+
+        val editor = sharedPreferences.edit()
+        editor.remove(TRANSACTION_LIST_KEY)
+        editor.apply()
     }
 
     private fun getCurrentDate(): String {
