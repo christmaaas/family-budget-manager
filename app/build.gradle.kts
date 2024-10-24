@@ -19,11 +19,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//        externalNativeBuild {
-//            cmake {
-//                cppFlags.add("-std=c++11")
-//            }
-//        }
+        externalNativeBuild {
+            cmake {
+                cppFlags.add("-std=c++11")
+            }
+        }
     }
 
     buildTypes {
@@ -50,11 +50,11 @@ android {
         dataBinding = true
     }
 
-//    externalNativeBuild {
-//        cmake {
-//            path = file("src/main/cpp/CMakeLists.txt")
-//        }
-//    }
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+        }
+    }
 }
 
 dependencies {

@@ -21,6 +21,14 @@ class AddTransactionFragment : Fragment() {
     private val EXPENSE_KEY = "last_expense"
     private val INCOME_KEY = "last_income"
 
+    companion object {
+        init {
+            System.loadLibrary("budget_calculator")
+        }
+    }
+
+    external fun calculateNewBudget(currentBudget: Double, amount: Double, isProfit: Boolean): Double
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +53,6 @@ class AddTransactionFragment : Fragment() {
                 else -> null
             }
 
-            // Проверяем, что все поля заполнены
             if (title.isEmpty() || category.isEmpty() || amountStr.isEmpty() || description.isEmpty() || selectedTransactionType == null) {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             } else {
@@ -81,13 +88,11 @@ class AddTransactionFragment : Fragment() {
         val currentExpense = sharedPreferences.getString(EXPENSE_KEY, "0.0")?.toDouble() ?: 0.0
         val currentIncome = sharedPreferences.getString(INCOME_KEY, "0.0")?.toDouble() ?: 0.0
 
-        val newBudget = if (transactionType == "Profit") {
-            currentBudget + amount
-        } else {
-            currentBudget - amount
-        }
+        val isProfit = transactionType == "Profit"
 
-        if (transactionType == "Profit") {
+        val newBudget = calculateNewBudget(currentBudget, amount, isProfit)
+
+        if (isProfit) {
             val newIncome = currentIncome + amount
             editor.putString(INCOME_KEY, newIncome.toString())
         } else {
