@@ -16,6 +16,8 @@ import com.example.familybudgetmanager.databinding.FragmentHomeBinding
 import com.example.familybudgetmanager.models.Budget
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.util.Date
+import java.util.Locale
 
 class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     private var _binding: FragmentHomeBinding? = null
@@ -158,7 +160,8 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
     }
 
     private fun getCurrentDate(): String {
-        return "19.10.2024"
+        val sdf = java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        return sdf.format(Date())
     }
 
     override fun onDeleteBudget(budget: Budget) {

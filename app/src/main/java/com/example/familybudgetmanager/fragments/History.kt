@@ -16,6 +16,8 @@ import com.example.familybudgetmanager.databinding.FragmentHistoryBinding
 import com.example.familybudgetmanager.models.Transaction
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.util.Date
+import java.util.Locale
 
 class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     private var _binding: FragmentHistoryBinding? = null
@@ -118,7 +120,8 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     }
 
     private fun getCurrentDate(): String {
-        return "19.10.2024"
+        val sdf = java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        return sdf.format(Date())
     }
 
     override fun onItemClick(transaction: Transaction) {
