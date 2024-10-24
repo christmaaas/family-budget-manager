@@ -27,13 +27,13 @@ class SignUpActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.textView.setOnClickListener {
+        binding.buttonSignIn.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        binding.button.setOnClickListener {
+        binding.buttonSignUp.setOnClickListener {
             val email = binding.emailEt.text.toString()
             val pass = binding.passET.text.toString()
             val confirmPass = binding.confirmPassEt.text.toString()
