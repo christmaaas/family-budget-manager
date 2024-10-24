@@ -27,7 +27,8 @@ class AddTransactionFragment : Fragment() {
         }
     }
 
-    external fun calculateNewBudget(currentBudget: Double, amount: Double, isProfit: Boolean): Double
+    external fun calculateNewBudget(currentBudget: Double, amount: Double, isProfit: Boolean): String
+    external fun updateIncomeOrExpense(currentIncome: Double, currentExpense: Double, amount: Double, isProfit: Boolean): String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,16 +92,15 @@ class AddTransactionFragment : Fragment() {
         val isProfit = transactionType == "Profit"
 
         val newBudget = calculateNewBudget(currentBudget, amount, isProfit)
+        val updatedValue = updateIncomeOrExpense(currentIncome, currentExpense, amount, isProfit)
 
         if (isProfit) {
-            val newIncome = currentIncome + amount
-            editor.putString(INCOME_KEY, newIncome.toString())
+            editor.putString(INCOME_KEY, updatedValue)
         } else {
-            val newExpense = currentExpense + amount
-            editor.putString(EXPENSE_KEY, newExpense.toString())
+            editor.putString(EXPENSE_KEY, updatedValue)
         }
 
-        editor.putString(BUDGET_KEY, newBudget.toString())
+        editor.putString(BUDGET_KEY, newBudget)
         editor.apply()
     }
 
