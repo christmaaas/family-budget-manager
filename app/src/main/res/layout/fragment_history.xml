@@ -17,7 +17,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintTop_toTopOf="parent"
         android:titleTextColor="@android:color/white"
-        app:title="Transaction History" />
+        app:title="Transactions" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/transactionTypeToggleGroup"

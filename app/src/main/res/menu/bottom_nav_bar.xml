@@ -6,7 +6,7 @@
     <item android:title="@string/statistic"
         android:id="@+id/statistic"
         android:icon="@drawable/ic_bottom_statistic" />
-    <item android:title="@string/history"
+    <item android:title="@string/transactions"
         android:id="@+id/history"
         android:icon="@drawable/ic_bottom_history" />
     <item android:title="@string/profile"
