@@ -46,6 +46,10 @@ class Profile : Fragment() {
             activity?.finish()
         }
 
+        binding.contactDeveloperLabel.setOnClickListener {
+            Toast.makeText(requireContext(), "Telegram: @chr1stmaaas", Toast.LENGTH_LONG).show()
+        }
+
         return binding.root
     }
 
