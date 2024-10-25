@@ -155,6 +155,8 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
             currentFilter?.let {
                 filterTransactions(it)
             } ?: transactionsAdapter.notifyDataSetChanged()
+
+            Toast.makeText(requireContext(), "Transaction deleted", Toast.LENGTH_SHORT).show()
         }
     }
 

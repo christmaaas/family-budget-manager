@@ -174,6 +174,7 @@ class Home : Fragment(), BudgetAdapter.RecyclerViewEvent {
             saveBudgetHistory()
             budgetAdapter.notifyItemRemoved(position)
         }
+        Toast.makeText(requireContext(), "Budget deleted", Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemClick(budget: Budget) {
