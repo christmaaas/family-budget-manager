@@ -35,10 +35,23 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
     private val TRANSACTION_LIST_KEY = "transactions_list"
     private val USER_PREFS = "user_prefs"
     private val USERNAME_KEY = "username"
+    private val PREFS_NAME_BUDGET = "budget_history_prefs"
+    private val BUDGET_KEY = "last_budget"
+    private val EXPENSE_KEY = "last_expense"
+    private val INCOME_KEY = "last_income"
 
     private var currentFilter: String? = null
 
     private val currency = "BYN"
+
+    companion object {
+        init {
+            System.loadLibrary("budget_calculator")
+        }
+    }
+
+    external fun calculateNewBudget(currentBudget: Double, amount: Double, isProfit: Boolean): String
+    external fun updateIncomeOrExpense(currentIncome: Double, currentExpense: Double, amount: Double, isProfit: Boolean): String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -152,13 +165,35 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
             transactionsList.removeAt(positionInMainList)
             saveTransactions()
 
+            sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME_BUDGET, Context.MODE_PRIVATE)
+
+            val currentBudget = sharedPreferences.getString(BUDGET_KEY, "0.0")?.toDouble() ?: 0.0
+            val currentExpense = sharedPreferences.getString(EXPENSE_KEY, "0.0")?.toDouble() ?: 0.0
+            val currentIncome = sharedPreferences.getString(INCOME_KEY, "0.0")?.toDouble() ?: 0.0
+
+            val isProfit = transaction.type == "Profit"
+
+            val transactionAmount = transaction.amount.filter { it.isDigit() || it == '.' }.toDoubleOrNull() ?: 0.0
+
+            val newBudget = calculateNewBudget(currentBudget, transactionAmount, isProfit)
+            val updatedValue = updateIncomeOrExpense(currentIncome, currentExpense, transactionAmount, isProfit)
+
+            if (isProfit) {
+                sharedPreferences.edit().putString(INCOME_KEY, updatedValue).apply()
+            } else {
+                sharedPreferences.edit().putString(EXPENSE_KEY, updatedValue).apply()
+            }
+
+            sharedPreferences.edit().putString(BUDGET_KEY, newBudget).apply()
+
+            sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
             currentFilter?.let {
                 filterTransactions(it)
             } ?: transactionsAdapter.notifyDataSetChanged()
-
-            Toast.makeText(requireContext(), "Transaction deleted", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
