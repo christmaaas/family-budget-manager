@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -80,6 +81,8 @@ class History : Fragment(), TransactionAdapter.RecyclerViewEvent {
                 saveTransactions()
 
                 transactionsAdapter.notifyItemInserted(transactionsList.size - 1)
+
+                Toast.makeText(requireContext(), "New transaction added", Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
             e.printStackTrace()
